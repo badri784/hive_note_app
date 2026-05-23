@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_project/views/widget/custom_floating_action.dart';
 import 'package:hive_project/views/widget/custom_list_view.dart';
 
 class ViewNote extends StatelessWidget {
@@ -7,11 +8,12 @@ class ViewNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: CustomFloatingAction(),
       appBar: AppBar(
         title: Text('Notes'),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 16, top: 8),
             child: Container(
               height: 50,
               width: 50,
