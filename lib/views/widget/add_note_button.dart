@@ -36,7 +36,7 @@ class _AddNoteButtonState extends State<AddNoteButton> {
                 controller: subTitleController,
                 maxLines: 5,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 75),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,

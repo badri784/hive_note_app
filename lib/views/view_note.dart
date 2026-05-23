@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_project/views/widget/custom_app_bar.dart';
 import 'package:hive_project/views/widget/custom_floating_action.dart';
 import 'package:hive_project/views/widget/custom_list_view.dart';
 
@@ -11,21 +12,7 @@ class ViewNote extends StatelessWidget {
       floatingActionButton: CustomFloatingAction(),
       appBar: AppBar(
         title: Text('Notes'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16, top: 8),
-            child: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                // ignore: deprecated_member_use
-                color: Colors.white.withOpacity(0.05),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            ),
-          ),
-        ],
+        actions: [CutomAppBar(onPressed: () {}, icon: Icon(Icons.search))],
       ),
       body: CustomListView(),
     );
