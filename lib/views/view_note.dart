@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive_project/views/widget/custom_list_view.dart';
 
-class ViewNoteApp extends StatelessWidget {
-  const ViewNoteApp({super.key});
+class ViewNote extends StatelessWidget {
+  const ViewNote({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class ViewNoteApp extends StatelessWidget {
           ),
         ],
       ),
+      body: CustomListView(),
     );
   }
 }

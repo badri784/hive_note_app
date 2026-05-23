@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:hive_project/views/view_note_app.dart';
+import 'package:hive_project/views/view_note.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(brightness: Brightness.dark),
-      home: ViewNoteApp(),
+      theme: ThemeData(brightness: Brightness.dark, fontFamily: 'Poppins'),
+      home: ViewNote(),
     );
   }
 }
