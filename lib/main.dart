@@ -7,8 +7,8 @@ import 'package:hive_project/constant.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox(kNotesBox);
   Hive.registerAdapter(NoteModelAdapter());
+  await Hive.openBox(kNotesBox);
   runApp(const MyApp());
 }
 
