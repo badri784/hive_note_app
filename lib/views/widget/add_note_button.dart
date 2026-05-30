@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_project/cubits/add_note_cubit.dart';
 import 'package:hive_project/views/widget/form_text_field.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class AddNoteButton extends StatefulWidget {
+class AddNoteButton extends StatelessWidget {
   const AddNoteButton({super.key});
 
-  @override
-  State<AddNoteButton> createState() => _AddNoteButtonState();
-}
-
-class _AddNoteButtonState extends State<AddNoteButton> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -21,7 +19,29 @@ class _AddNoteButtonState extends State<AddNoteButton> {
             bottom: 16,
             top: 16,
           ),
-          child: FormTextField(),
+          child: BlocConsumer<AddNoteCubit, AddNoteState>(
+            listener: (context, state) {
+              if (state is AddNoteFailure) {
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+              if (state is AddNoteSuccess) {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Note added successfully')),
+                );
+              }
+            },
+            builder: (context, state) {
+              return ModalProgressHUD(
+                inAsyncCall: state is AddNoteLoading ? true : false,
+                child: FormTextField(),
+              );
+            },
+          ),
         ),
       ),
     );
