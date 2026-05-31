@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_project/cubits/notes_cubit.dart';
+import 'package:hive_project/models/note_model.dart';
 import 'package:hive_project/views/edit_view.dart';
 
 class NoteBody extends StatelessWidget {
-  const NoteBody({super.key});
+  const NoteBody({super.key, required this.note});
+  final NoteModel note;
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +27,33 @@ class NoteBody extends StatelessWidget {
             right: 16,
           ),
           decoration: BoxDecoration(
-            color: const Color(0xffffcd7a),
+            color: Color(note.color),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ListTile(
-                title: const Text(
-                  'Flutter tips',
+                title: Text(
+                  note.title,
                   style: TextStyle(fontSize: 22, color: Colors.black),
                 ),
                 subtitle: Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: Text(
-                    'Build your career with Ahmed Elbadri',
+                    note.subTitle,
                     style: TextStyle(color: Colors.black.withOpacity(0.7)),
                   ),
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    note.delete();
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text('Note is deleted')));
+                  },
                   icon: const Icon(Icons.delete, color: Colors.black, size: 24),
                 ),
               ),
@@ -50,7 +61,7 @@ class NoteBody extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 24),
                 child: Text(
-                  'May 24, 2026',
+                  note.data,
                   style: const TextStyle(color: Colors.black),
                 ),
               ),

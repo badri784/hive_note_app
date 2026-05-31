@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_project/cubits/add_note_cubit.dart';
+import 'package:hive_project/models/note_model.dart';
 import 'package:hive_project/views/widget/cutom_text_feild.dart';
 
 class FormTextField extends StatefulWidget {
@@ -56,6 +59,13 @@ class _FormTextFieldState extends State<FormTextField> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
+                    var noteModel = NoteModel(
+                      title: titleController.text,
+                      subTitle: subTitleController.text,
+                      data: DateTime.now().toString(),
+                      color: Color(Colors.blue.value).value,
+                    );
+                    BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('please fill all the fields')),

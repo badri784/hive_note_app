@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SimpilBlocObservr implements BlocObserver {
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
-    debugPrint('on change ${bloc.runtimeType}, ${change.toString()}');
+    debugPrint('on change  ${change.toString()}');
   }
 
   @override
@@ -13,7 +13,9 @@ class SimpilBlocObservr implements BlocObserver {
   }
 
   @override
-  void onCreate(BlocBase<dynamic> bloc) {}
+  void onCreate(BlocBase<dynamic> bloc) {
+    debugPrint('on create  ${bloc.toString()}');
+  }
 
   @override
   void onDone(

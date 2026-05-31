@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_project/cubits/add_note_cubit.dart';
+import 'package:hive_project/cubits/notes_cubit.dart';
 import 'package:hive_project/views/widget/form_text_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -9,7 +10,8 @@ class AddNoteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return BlocProvider(
+      create: (context) => AddNoteCubit(),
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: Padding(
@@ -28,17 +30,18 @@ class AddNoteButton extends StatelessWidget {
                 ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
               }
               if (state is AddNoteSuccess) {
+                BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Note added successfully')),
+                  const SnackBar(content: Text('Note added successfully')),
                 );
               }
             },
             builder: (context, state) {
               return ModalProgressHUD(
                 inAsyncCall: state is AddNoteLoading ? true : false,
-                child: FormTextField(),
+                child: const SingleChildScrollView(child: FormTextField()),
               );
             },
           ),
